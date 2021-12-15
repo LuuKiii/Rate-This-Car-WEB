@@ -1,5 +1,29 @@
-body{
+body, html{
 	margin: 0;
+	height: 100%;
+	
+	background-color: #847F8E;
+}
+
+#page-wrapper{
+	margin: 0 auto;
+	padding:30px 15px 30px 15px;
+	
+	
+	width: 960px;
+	height: 95%;
+	background-color: #686174;
 	
 }
 
+#footer{
+	position: absolute;
+	bottom: 0;
+	border-top: 1px solid black;
+	padding-bottom: 2em;
+	
+	width:100%;
+	min-width: 960px;
+	text-align: center;
+	background-color: #4F485C;
+}

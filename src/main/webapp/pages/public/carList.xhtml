@@ -7,9 +7,36 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
+	
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
 		<h1>Hello world</h1>
+		
+
+
+
+
+		<p:dataTable value="#{userBB.getFullList()}" var="u">
+
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="imię" />
+				</f:facet>
+				<h:outputText value="#{u.userName}" />
+			</p:column>
+			
+			<p:column priority="4">
+				<f:facet name="header">
+					<h:outputText value="imię" />
+				</f:facet>
+				<h:outputText value="#{u.role}" />
+			</p:column>
+
+
+		</p:dataTable>
+
+		
+
 	
 	</ui:define>
 </ui:composition>
