@@ -13,18 +13,15 @@
 </h:head>
 
 <h:body>
-	<div id="page-wrapper">
 	
-		<ui:insert name="navbar">
-			<div id="navbar-container">
-				<ui:include src="/templates/navbar-snippet.xhtml" />
-			</div>
+		<ui:insert name="navbar">			
+				<ui:include src="/templates/navbar-snippet.xhtml" />			
 		</ui:insert>
 		
+	<div id="page-wrapper">	
 		<div id="content">
 			<ui:insert name="pageContent"></ui:insert>
 		</div>
-
 	</div>
 	
 		<ui:insert name="footer">
