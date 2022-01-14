@@ -23,13 +23,13 @@
 		
             <p:outputLabel for="mail" value="E-mail: "/>
             <p:inputText id="mail" autocomplete="off"
-            value="" >
+            value="#{loginBB.mail}" >
             </p:inputText>
            
 
             <p:outputLabel for="pass" value="Password: "/>
             <p:password id="pass" autocomplete="off"
-            value="" >
+            value="#{loginBB.pass}" >
             </p:password>
             
 
@@ -38,7 +38,7 @@
 		
         </h:panelGrid>
         
-        <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Log in"/>	
+        <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Log in" action="#{loginBB.loginAction()}"/>	
         
 
 	</h:form>

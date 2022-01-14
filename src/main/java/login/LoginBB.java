@@ -26,18 +26,20 @@ import jsf.entities.User;
 public class LoginBB {
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	
-	private String login;
+	private String mail;
 	private String pass;
 	
 	
 	
-	public String getLogin() {
-		return login;
+
+
+	public String getMail() {
+		return mail;
 	}
 
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 
@@ -66,6 +68,17 @@ public class LoginBB {
 
 	public List<User> getFullList(){
 		return userDAO.getAllUsers();
+	}
+	
+	public void loginAction() {
+		
+		List<User> users = userDAO.userExists(mail , pass);
+		
+		if(users.isEmpty()) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong E-mail or Password",null));
+		} else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ok",null));
+		}
 	}
 		
 
