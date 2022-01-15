@@ -72,7 +72,7 @@ public class LoginBB {
 	
 	public void loginAction() {
 		
-		List<User> users = userDAO.userExists(mail , pass);
+		List<User> users = userDAO.canLogin(mail , pass);
 		
 		if(users.isEmpty()) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong E-mail or Password",null));
