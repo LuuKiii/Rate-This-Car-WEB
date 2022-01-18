@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="pageContent">
+
+
+		<p:panel toggleable="false" header="Edit Producer">
+
+		<h:form rendered="#{editProducerBB.producer != null}">
+			<h:panelGrid columns="3" cellpadding="5">
+
+				<h:outputLabel for="name" value="Producer Name:" />
+				<p:inputText id="name" value="#{editProducerBB.producer.producerName}"
+					required="true" requiredMessage="Manufacturers name must be provided">
+					
+				</p:inputText>
+				<p:message for="name" display="icon"/>
+
+				<h:outputLabel for="country" value="Country of origin:" />
+				<p:inputText id="country" value="#{editProducerBB.producer.producerCountry}"
+					required="true" requiredMessage="Country of origin must be provided">
+
+				</p:inputText>
+				<p:message for="p-surname" display="icon"/>
+
+				<h:outputLabel for="desc" value="Description: " />
+				<p:inputText id="desc" value="#{editProducerBB.producer.producerDescription}">
+			    </p:inputText>
+				<p:message for="desc" display="icon"/>
+			</h:panelGrid>
+
+			<p:messages id="msgs" />
+
+			<p:commandButton value="Save" action="#{editProducerBB.saveData()}"
+				style="margin-right: 1em;" update="@form" />
+
+			<p:button value="Cancel" outcome="/pages/admin/producer" />
+		</h:form>
+
+	</p:panel>
+	
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="pageContent">
+
+	    <p:messages id="messages" showDetail="true">
+            <p:autoUpdate/>
+        </p:messages>
+		
+		<h:form style="display:flex; justify-content: end; ">
+			<h:commandLink value="Add Producer" action="/pages/admin/addProducer" style="border: 0; padding: 10px 30px; background-color: black;"/>		
+		</h:form>
+		
+		<br/>
+		<br/>
+		
+		<h:form>
+			<p:dataTable value="#{addProducerBB.getFullList()}" var="p"  editable="true">
+
+			<p:column priority="1">
+				<f:facet name="header">
+					<h:outputText value="Manufacturer" />
+				</f:facet>
+				<h:outputText value="#{p.producerName}" />
+			</p:column>
+			
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="Country of origin" />
+				</f:facet>
+				<h:outputText value="#{p.producerCountry}" />
+			</p:column>
+			
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="Manage" />
+				</f:facet>
+					<p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger" style="border: 0px;background-color:red;" action="#{producerBB.deletePro(p.idproducer)}" update="@form"/>	
+					<p:commandButton icon="pi pi-bookmark" styleClass="rounded-button" style="border: 0px;" action="#{producerBB.editProducer(p)}"/>
+								
+			</p:column>
+			
+
+
+		</p:dataTable>
+		</h:form>
+
+	
+	</ui:define>
+</ui:composition>
+</html>

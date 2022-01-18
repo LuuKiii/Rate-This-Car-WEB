@@ -1,4 +1,4 @@
-package addProd;
+package producer;
 
 
 
@@ -19,19 +19,19 @@ import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpSession;
 
 
+
 import jsf.dao.ProducerDAO;
 import jsf.entities.Producer;
 
 @Named
 @RequestScoped
-public class AddProducerBB implements Serializable {
+public class ProducerBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	private static final String PAGE_MAIN = "/pages/public/carList?faces-redirect=true";
-	private static final String PAGE_PRODUCER = "/pages/admin/producer?faces-redirect=true";
+	private static final String PAGE_EDIT_PRODUCER = "/pages/admin/editProducer?faces-redirect=true";
 
-	
 
 	
 	private Producer producer = new Producer();
@@ -52,38 +52,31 @@ public class AddProducerBB implements Serializable {
 	Flash flash;
 	
 
-	
-	public List<Producer> getFullList(){
-		return producerDAO.getAllProducers();
-	}
-	
+	public String deletePro(int id) {
+		
+		try {
+			producer = producerDAO.find(id);
+			producerDAO.remove(producer);
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully removed producer: " + producer.getProducerName(), ""));
 
-	
-	public String createPro() {
-		
-		if(producer.getProducerDescription() == "") {
-			producer.setProducerDescription(null);
+		} catch(Exception e) {
+			e.printStackTrace();
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ""));
+			return PAGE_STAY_AT_THE_SAME;
 		}
 		
-		if(!(producerDAO.producerExists(producer.getProducerName()).isEmpty())) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This producer already Exists", ""));
-		}else {
-			try {
-				producerDAO.create(producer);
-				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully added producer: " + producer.getProducerName(), ""));
-				return PAGE_PRODUCER;
-			}catch(Exception e){
-				e.printStackTrace();
-				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ""));
-				return PAGE_STAY_AT_THE_SAME;
-			}
-		}
+
 		return PAGE_STAY_AT_THE_SAME;
 	}
 	
-	public String cancel() {
-		return PAGE_PRODUCER;
+	public String editProducer(Producer producer){
+		flash.put("producer", producer);
+		
+		return PAGE_EDIT_PRODUCER;
 	}
+	
+
+
 
 
 }

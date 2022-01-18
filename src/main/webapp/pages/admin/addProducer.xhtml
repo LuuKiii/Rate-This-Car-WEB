@@ -32,34 +32,24 @@
             value="#{addProducerBB.producer.producerCountry}" >
             </p:inputText>
             
-            <p:outputLabel for="desc" value="Description: "/>
-            <p:inputText id="desc" autocomplete="off"
-            value="#{addProducerBB.producer.producerDescription}" >
-            </p:inputText>
-            
-
-          	<p:column></p:column>
-
-		
+           
+            	<p:outputLabel for="desc" value="Description: "/>
+            	<p:column></p:column>
+            	
+	
         </h:panelGrid>
         
+            <p:inputTextarea id="desc" rows="12" cols="50" autocomplete="off"
+           		 value="#{addProducerBB.producer.producerDescription}" >
+            </p:inputTextarea>
+            <br/>
+        
+        <p:linkButton style="margin: 10px; border: 0; padding: 0 50px; background-color: black;" value="Cancel" outcome="/pages/admin/producer" />	
         <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Add" action="#{addProducerBB.createPro()}" update="@form"/>	
         
 
 	</h:form>
 	
-			<p:dataTable value="#{addProducerBB.getFullList()}" var="p">
-
-			<p:column priority="5">
-				<f:facet name="header">
-					<h:outputText value="imię" />
-				</f:facet>
-				<h:outputText value="#{p.producerName}" />
-			</p:column>
-			
-
-
-		</p:dataTable>
 	
 
 	

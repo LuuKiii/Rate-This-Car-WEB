@@ -67,9 +67,7 @@ public class RegisterBB implements Serializable{
 	}
 
 
-	@Inject
-	ExternalContext extcontext;
-	
+
 	@Inject
 	FacesContext ctx;
 	
