@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="pageContent">
+
+	    <p:messages id="messages" showDetail="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+
+	<h:form id="form-container">
+		
+		
+		
+		<h:panelGrid id="grid" columns="2" cellpadding="7">
+		
+            <p:outputLabel for="name" value="Manufacturer: "/>
+            <p:inputText id="name" autocomplete="off" required="true" requiredMessage="Manufacturer name is required"
+            value="#{addProducerBB.producer.producerName}" >
+            </p:inputText>
+           
+
+            <p:outputLabel for="country" value="Country of origin: "/>
+            <p:inputText id="country" autocomplete="off" required="true" requiredMessage="Country of origin is required"
+            value="#{addProducerBB.producer.producerCountry}" >
+            </p:inputText>
+            
+            <p:outputLabel for="desc" value="Description: "/>
+            <p:inputText id="desc" autocomplete="off"
+            value="#{addProducerBB.producer.producerDescription}" >
+            </p:inputText>
+            
+
+          	<p:column></p:column>
+
+		
+        </h:panelGrid>
+        
+        <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Add" action="#{addProducerBB.createPro()}" update="@form"/>	
+        
+
+	</h:form>
+	
+			<p:dataTable value="#{addProducerBB.getFullList()}" var="p">
+
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="imię" />
+				</f:facet>
+				<h:outputText value="#{p.producerName}" />
+			</p:column>
+			
+
+
+		</p:dataTable>
+	
+
+	
+	</ui:define>
+</ui:composition>
+</html>

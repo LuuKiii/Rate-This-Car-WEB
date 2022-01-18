@@ -22,23 +22,24 @@
 		<h:panelGrid id="grid" columns="2" cellpadding="7">
 		
 		    <p:outputLabel for="name" value="Username: "/>
-            <p:inputText id="name" autocomplete="off"
+            <p:inputText id="name" autocomplete="off" required="true" requiredMessage="Username is required"
             value="#{registerBB.name}" >
             </p:inputText>
 		
 		
             <p:outputLabel for="mail" value="E-mail: "/>
-            <p:inputText id="mail" autocomplete="off"
+            <p:inputText id="mail" autocomplete="off" required="true" requiredMessage="E-mail is required"
             value="#{registerBB.mail}" >
             </p:inputText>
            
 
             <p:outputLabel for="pass" value="Password: "/>
-            <p:password id="pass" match="pass2" autocomplete="off"  value="#{registerBB.pass}" feedback="true" >
+            <p:password id="pass" match="pass2" autocomplete="off"  value="#{registerBB.pass}" feedback="true"
+            required="true" requiredMessage="Password is required" >
             </p:password>
             
             <p:outputLabel for="pass2" value="Repeat Password: "/>
-            <p:password id="pass2" autocomplete="off"   >
+            <p:password id="pass2" autocomplete="off"  >
             </p:password>
             
 
@@ -61,12 +62,7 @@
 				<h:outputText value="#{u.userName}" />
 			</p:column>
 			
-			<p:column priority="4">
-				<f:facet name="header">
-					<h:outputText value="imię" />
-				</f:facet>
-				<h:outputText value="#{u.role}" />
-			</p:column>
+
 
 
 		</p:dataTable>

@@ -25,7 +25,10 @@ import jsf.entities.User;
 @Named
 @RequestScoped
 public class RegisterBB implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+	private static final String PAGE_MAIN = "/pages/public/carList?faces-redirect=true";
+
 	
 	private String name;
 	private String mail;
@@ -33,12 +36,11 @@ public class RegisterBB implements Serializable{
 	
 	private User user = new User();
 	
-
-
+	
+	
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
@@ -78,7 +80,7 @@ public class RegisterBB implements Serializable{
 	UserDAO userDAO;
 	
 
-	public void createUser() {
+	public String createUser() {
 		List<User> usernames = userDAO.usernameExists(name);
 		List<User> mails = userDAO.mailExists(mail);
 		
@@ -88,24 +90,28 @@ public class RegisterBB implements Serializable{
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This E-mail address is already in use",null));
 
 		}else {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ok",null));
 			user.setUserName(name);
 			user.setEmail(mail);
 			user.setPassword(pass);
 			user.setRole("user");
-			user.setIduser(10);
+			
 			
 			try {
 				userDAO.create(user);
+				return PAGE_MAIN;
 			}catch(Exception e) {
 				e.printStackTrace();
 				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));
+				
 
 			}
 			
 		}
+		
+		return PAGE_STAY_AT_THE_SAME;
 
 	}
+	
 		
 
 }
