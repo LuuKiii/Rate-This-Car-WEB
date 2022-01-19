@@ -6,37 +6,39 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+    <f:viewAction action="#{editProducerBB.onLoad()}" />
+</f:metadata>
 
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
+		
+	
+	<p:messages id="msgs" />
 
-
-		<p:panel toggleable="false" header="Edit Producer">
-
-		<h:form rendered="#{editProducerBB.producer != null}">
-			<h:panelGrid columns="3" cellpadding="5">
+		<h:form id="form-container" rendered="#{editProducerBB.producer != null}" >
+			<h:panelGrid columns="2" cellpadding="5">
 
 				<h:outputLabel for="name" value="Producer Name:" />
 				<p:inputText id="name" value="#{editProducerBB.producer.producerName}"
 					required="true" requiredMessage="Manufacturers name must be provided">
 					
 				</p:inputText>
-				<p:message for="name" display="icon"/>
 
 				<h:outputLabel for="country" value="Country of origin:" />
 				<p:inputText id="country" value="#{editProducerBB.producer.producerCountry}"
 					required="true" requiredMessage="Country of origin must be provided">
 
 				</p:inputText>
-				<p:message for="p-surname" display="icon"/>
+				
+				<p:outputLabel for="desc" value="Description: "/>
+            	<p:column></p:column>
 
-				<h:outputLabel for="desc" value="Description: " />
-				<p:inputText id="desc" value="#{editProducerBB.producer.producerDescription}">
-			    </p:inputText>
-				<p:message for="desc" display="icon"/>
 			</h:panelGrid>
 
-			<p:messages id="msgs" />
+			<p:inputTextarea id="desc" value="#{editProducerBB.producer.producerDescription}" rows="12" cols="50">
+			</p:inputTextarea>
+			 <br/>
 
 			<p:commandButton value="Save" action="#{editProducerBB.saveData()}"
 				style="margin-right: 1em;" update="@form" />
@@ -44,7 +46,7 @@
 			<p:button value="Cancel" outcome="/pages/admin/producer" />
 		</h:form>
 
-	</p:panel>
+
 	
 	</ui:define>
 </ui:composition>

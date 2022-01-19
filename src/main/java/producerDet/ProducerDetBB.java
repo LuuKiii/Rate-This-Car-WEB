@@ -1,7 +1,8 @@
-package producer;
+package producerDet;
 
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ import jsf.entities.Producer;
 
 @Named
 @RequestScoped
-public class ProducerBB implements Serializable {
+public class ProducerDetBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
@@ -36,7 +37,7 @@ public class ProducerBB implements Serializable {
 
 	
 	private Producer producer = new Producer();
-	
+	private Producer loaded = null;
 
 
 	public Producer getProducer() {
@@ -56,21 +57,16 @@ public class ProducerBB implements Serializable {
 	Flash flash;
 	
 
-	public String deletePro(Producer producer) {
-		producerDAO.remove(producer);
-		return PAGE_STAY_AT_THE_SAME;
-	}
-	
-	public String editProducer(Producer producer){
-		flash.put("producer", producer);
-		
-		return PAGE_EDIT_PRODUCER;
-	}
-	
-	public String detProducer(Producer producer){
-		flash.put("producer", producer);
-		
-		return PAGE_PRODUCER_DETAIL;
+	public void onLoad() throws IOException {
+
+		loaded = (Producer) flash.get("producer");
+
+		if (loaded != null) {
+			producer = loaded;
+		} else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));			
+		}
+
 	}
 
 

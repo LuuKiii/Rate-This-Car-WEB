@@ -52,21 +52,6 @@
         
 
 	</h:form>
-		
-		<p:dataTable value="#{userBB.getFullList()}" var="u">
-
-			<p:column priority="5">
-				<f:facet name="header">
-					<h:outputText value="imię" />
-				</f:facet>
-				<h:outputText value="#{u.userName}" />
-			</p:column>
-			
-
-
-
-		</p:dataTable>
-		
 	
 	</ui:define>
 </ui:composition>

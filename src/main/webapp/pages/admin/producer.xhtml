@@ -28,7 +28,9 @@
 				<f:facet name="header">
 					<h:outputText value="Manufacturer" />
 				</f:facet>
-				<h:outputText value="#{p.producerName}" />
+				<p:commandLink  action="#{producerBB.detProducer(p)}">
+					<h:outputText value="#{p.producerName}" />
+				</p:commandLink>
 			</p:column>
 			
 			<p:column priority="5">
@@ -42,7 +44,7 @@
 				<f:facet name="header">
 					<h:outputText value="Manage" />
 				</f:facet>
-					<p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger" style="border: 0px;background-color:red;" action="#{producerBB.deletePro(p.idproducer)}" update="@form"/>	
+					<p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger" style="border: 0px;background-color:red;" action="#{producerBB.deletePro(p)}" update="@form"/>	
 					<p:commandButton icon="pi pi-bookmark" styleClass="rounded-button" style="border: 0px;" action="#{producerBB.editProducer(p)}"/>
 								
 			</p:column>
