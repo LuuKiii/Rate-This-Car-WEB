@@ -13,7 +13,12 @@
 		<h1>Car List</h1>
 		
 
-
+		<h:form style="display:flex; justify-content: end; ">
+			<h:commandLink value="Add Vehicle" action="/pages/admin/addVehicle" style="border: 0; padding: 10px 30px; background-color: black;"/>		
+		</h:form>
+		
+		<br/>
+		<br/>
 
 
 		<p:dataTable value="#{userBB.getFullList()}" var="u">

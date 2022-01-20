@@ -2,6 +2,7 @@ package producer;
 
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,8 @@ public class ProducerBB implements Serializable {
 
 	
 	private Producer producer = new Producer();
-	
+	private Producer loaded = null;
+
 
 
 	public Producer getProducer() {
@@ -71,6 +73,17 @@ public class ProducerBB implements Serializable {
 		flash.put("producer", producer);
 		
 		return PAGE_PRODUCER_DETAIL;
+	}
+	
+	public void onLoadDet() throws IOException {
+
+		loaded = (Producer) flash.get("producer");
+		if (loaded != null) {
+			producer = loaded;
+		} else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));			
+		}
+
 	}
 
 

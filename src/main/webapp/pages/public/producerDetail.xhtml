@@ -7,17 +7,17 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-    <f:viewAction action="#{producerDetBB.onLoad()}" />
+    <f:viewAction action="#{producerBB.onLoadDet()}" />
 </f:metadata>
 
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
 
-	<h:outputText value="#{producerDetBB.producer.producerName}" />
+	<h:outputText value="#{producerBB.producer.producerName}" />
 		<br/>
-	<h:outputText value="#{producerDetBB.producer.producerCountry}" />
+	<h:outputText value="#{producerBB.producer.producerCountry}" />
 		<br/>
-	<h:outputText value="#{producerDetBB.producer.producerDescription}" />
+	<h:outputText value="#{producerBB.producer.producerDescription}" />
 		
 
 

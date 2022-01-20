@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="pageContent">
+		<h1>Car List</h1>
+		
+
+
+	    <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+
+	<h:form id="form-container">
+		
+		
+		
+		<h:panelGrid id="grid" columns="2" cellpadding="7">
+		
+            <p:outputLabel for="name" value="Vehicle Name: "/>
+            <p:inputText id="name" autocomplete="off" required="true" requiredMessage="Vehicle Name is requierd"
+            value="#{addVehicleBB.vehicle.vehicleName}" >
+            </p:inputText>
+           
+
+            <p:outputLabel for="type" value="Vehicle Type: "/>
+
+            
+            <p:selectOneButton id="type" value="#{addVehicleBB.vehicle.vehicleType}" required="true" requiredMessage="Vehicle Type is requierd" >
+            	<f:selectItem itemLabel="Car" itemValue="Car"/>
+            	<f:selectItem itemLabel="Truck" itemValue="Truck"/>
+            	<f:selectItem itemLabel="Motorcycle" itemValue="Motorcycle"/>
+        	</p:selectOneButton>
+            
+           
+			<p:outputLabel for="power" value="Engine Power: " />
+            <p:inputText id="power" autocomplete="off"
+            value="#{addVehicleBB.vehicle.vehiclePower}" >
+            </p:inputText>
+            
+            <p:outputLabel for="engcap" value="Engine Capacity: "/>
+            <p:inputText id="engcap" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehicleEngCap}" >
+            </p:inputText>
+            
+            <p:outputLabel for="trans" value="Transmission type: "/>
+            <p:inputText id="trans" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehicleTransmission}" >
+            </p:inputText>
+            
+            <p:outputLabel for="fuel" value="Fuel: "/>
+            <p:inputText id="fuel" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehicleFuel}" >
+            </p:inputText>
+            
+            <p:outputLabel for="year" value="Model year: "/>
+            <p:inputText id="year" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehicleYear}" >
+            </p:inputText>
+            
+            <p:outputLabel for="price" value="Price: "/>
+            <p:inputText id="price" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehiclePrice}" >
+            </p:inputText>
+            
+            <p:outputLabel for="img" value="Image name: "/>
+            <p:inputText id="img" autocomplete="off" 
+            value="#{addVehicleBB.vehicle.vehicleImage}" >
+            </p:inputText>
+            
+           	<p:outputLabel for="prod" value="Manufacturer: "/>
+
+            
+             <p:selectOneMenu id="prod" value="#{addVehicleBB.prod}">
+				 <f:selectItems value="#{addProducerBB.getFullList()}" var="p"
+                                itemLabel="#{p.producerName}" itemValue="#{p.idproducer}"/>
+             </p:selectOneMenu>
+             
+        </h:panelGrid>
+        
+        
+        <p:linkButton style="margin: 10px; border: 0; padding: 0 50px; background-color: black;" value="Cancel" outcome="/pages/public/carList" />	
+        <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Add" action="#{addVehicleBB.createVeh()}" update="@form"/>	
+        
+
+	</h:form>
+
+		
+
+	
+	</ui:define>
+</ui:composition>
+</html>
