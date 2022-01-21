@@ -7,6 +7,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
+<f:metadata>
+    <f:viewAction action="#{addVehicleBB.onLoad()}" />
+</f:metadata>
 	
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
@@ -28,20 +31,28 @@
             <p:inputText id="name" autocomplete="off" required="true" requiredMessage="Vehicle Name is requierd"
             value="#{addVehicleBB.vehicle.vehicleName}" >
             </p:inputText>
+            
+             <p:outputLabel for="prod" value="Manufacturer: "/>
+             <p:selectOneMenu id="prod" value="#{addVehicleBB.prod}">
+				 <f:selectItems value="#{addProducerBB.getFullList()}" var="p"
+                                itemLabel="#{p.producerName}" itemValue="#{p.idproducer}"/>
+             </p:selectOneMenu>
            
 
             <p:outputLabel for="type" value="Vehicle Type: "/>
 
             
             <p:selectOneButton id="type" value="#{addVehicleBB.vehicle.vehicleType}" required="true" requiredMessage="Vehicle Type is requierd" >
-            	<f:selectItem itemLabel="Car" itemValue="Car"/>
-            	<f:selectItem itemLabel="Truck" itemValue="Truck"/>
-            	<f:selectItem itemLabel="Motorcycle" itemValue="Motorcycle"/>
+            	<f:selectItem itemLabel="Car" itemValue="Car" />
+            	<f:selectItem itemLabel="Truck" itemValue="Truck" />
+            	<f:selectItem itemLabel="Motorcycle" itemValue="Motorcycle" />
+            	<p:ajax  update="typesVar" process="@this"/>
+            	
         	</p:selectOneButton>
             
            
 			<p:outputLabel for="power" value="Engine Power: " />
-            <p:inputText id="power" autocomplete="off"
+            <p:inputText id="power" autocomplete="off" 
             value="#{addVehicleBB.vehicle.vehiclePower}" >
             </p:inputText>
             
@@ -75,15 +86,78 @@
             value="#{addVehicleBB.vehicle.vehicleImage}" >
             </p:inputText>
             
-           	<p:outputLabel for="prod" value="Manufacturer: "/>
 
-            
-             <p:selectOneMenu id="prod" value="#{addVehicleBB.prod}">
-				 <f:selectItems value="#{addProducerBB.getFullList()}" var="p"
-                                itemLabel="#{p.producerName}" itemValue="#{p.idproducer}"/>
-             </p:selectOneMenu>
+           
              
         </h:panelGrid>
+        <hr/>
+
+            <p:outputPanel id="typesVar">
+            
+
+				
+				<h:panelGrid id="gridCar" columns="2" cellpadding="7" rendered="#{addVehicleBB.vehicle.vehicleType == 'Car'}">
+				
+                    	<p:outputLabel for="cartype" value="Type of the car:" style="margin-right:20px;" />
+            			<p:inputText id="cartype" autocomplete="off"  
+            			value="#{addVehicleBB.car.carType}">
+            			</p:inputText>
+
+						<p:outputLabel for="topspeed" value="Top speed:" style="margin-right:20px;" />
+            			<p:inputText id="topspeed" autocomplete="off"  
+            			value="#{addVehicleBB.car.topSpeed}">
+            			</p:inputText>
+
+            			
+            			<p:outputLabel for="seats" value="Number of seats:" style="margin-right:20px;" />
+            				<p:inputText id="seats" autocomplete="off"  
+            				value="#{addVehicleBB.car.seats}">
+            			</p:inputText>
+            			
+            			<p:outputLabel for="drive" value="Drive:" style="margin-right:20px;" />
+            				<p:inputText id="drive" autocomplete="off" 
+            				value="#{addVehicleBB.car.drive}" >
+            			</p:inputText>
+            
+           
+           		</h:panelGrid>
+           		
+           		
+   				<h:panelGrid id="gridTruck" columns="2" cellpadding="7" rendered="#{addVehicleBB.vehicle.vehicleType == 'Truck'}">
+				
+
+            			<p:outputLabel for="trucktype" value="Type of the truck:" style="margin-right:20px;" />
+            			<p:inputText id="trucktype" autocomplete="off"   
+            			value="#{addVehicleBB.truck.truckType}">
+            			</p:inputText>
+
+						<p:outputLabel for="clear" value="Clearance:" style="margin-right:20px;" />
+            			<p:inputText id="clear" autocomplete="off"  
+            			value="#{addVehicleBB.truck.clearance}">
+            			</p:inputText>
+            
+           
+           		</h:panelGrid>
+           		
+           		
+           		<h:panelGrid id="gridMotorcycle" columns="2" cellpadding="7" rendered="#{addVehicleBB.vehicle.vehicleType == 'Motorcycle'}">
+				
+
+            			<p:outputLabel for="motortype" value="Type of the motorcycle:" style="margin-right:20px;" />
+            			<p:inputText id="motortype" autocomplete="off" 
+            			value="#{addVehicleBB.motor.motorType}" >
+            			</p:inputText>
+
+						<p:outputLabel for="topmotor" value="Top speed:" style="margin-right:20px;" />
+            			<p:inputText id="topmotor" autocomplete="off" 
+            			value="#{addVehicleBB.motor.topSpeed}"  >
+            			</p:inputText>
+            
+           
+           		</h:panelGrid>
+           		
+           	</p:outputPanel>
+           
         
         
         <p:linkButton style="margin: 10px; border: 0; padding: 0 50px; background-color: black;" value="Cancel" outcome="/pages/public/carList" />	

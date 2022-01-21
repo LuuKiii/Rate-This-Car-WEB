@@ -2,6 +2,7 @@ package addVehicle;
 
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +19,22 @@ import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpSession;
 
+
+
 import jsf.dao.ProducerDAO;
 import jsf.entities.Producer;
 import jsf.dao.VehicleDAO;
 import jsf.entities.Vehicle;
 
+import jsf.dao.CarDAO;
+import jsf.entities.Car;
+import jsf.dao.TruckDAO;
+import jsf.entities.Truck;
+import jsf.dao.MotorDAO;
+import jsf.entities.Motor;
+
 @Named
-@RequestScoped
+@ViewScoped
 public class AddVehicleBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,9 +45,28 @@ public class AddVehicleBB implements Serializable {
 	
 	private int prod;
 	
+	public int getProd() {
+		return prod;
+	}
+	public void setProd(int prod) {
+		this.prod = prod;
+	}
+	
+	
+	
+	
+	
+
+
 	private Producer producer = new Producer();
 	
 	private Vehicle vehicle = new Vehicle();
+	
+	private Car car = new Car();
+	
+	private Truck truck = new Truck();
+	
+	private Motor motor = new Motor();
 	
 
 
@@ -45,46 +74,52 @@ public class AddVehicleBB implements Serializable {
 		return vehicle;
 	}
 	
-	
-	
 
-	public int getProd() {
-		return prod;
+	
+	public Car getCar() {
+		return car;
 	}
-
-
-	public void setProd(int prod) {
-		this.prod = prod;
+	public void setCar(Car car) {
+		this.car = car;
 	}
-
-
-	
-
-
-
-
+	public Truck getTruck() {
+		return truck;
+	}
+	public void setTruck(Truck truck) {
+		this.truck = truck;
+	}
+	public Motor getMotor() {
+		return motor;
+	}
+	public void setMotor(Motor motor) {
+		this.motor = motor;
+	}
 	public Producer getProducer() {
 		return producer;
 	}
-
-
-
 
 	public void setProducer(Producer producer) {
 		this.producer = producer;
 	}
 
 
-
-
-
-
-
+	@EJB
+	ProducerDAO producerDAO;
+	
 	@EJB
 	VehicleDAO vehicleDAO;
 	
+	
 	@EJB
-	ProducerDAO producerDAO;
+	CarDAO carDAO;
+	
+	@EJB 
+	TruckDAO truckDAO;
+	
+	@EJB 
+	MotorDAO motorDAO;
+	
+	
 	
 	@Inject
 	FacesContext ctx;
@@ -92,8 +127,11 @@ public class AddVehicleBB implements Serializable {
 	@Inject
 	Flash flash;
 	
+	public void onLoad() throws IOException {
+		vehicle.setVehicleType("Car");
 
-	
+	}
+		
 	public List<Vehicle> getFullList(){
 		return vehicleDAO.getAllVehicles();
 	}
@@ -101,17 +139,63 @@ public class AddVehicleBB implements Serializable {
 	public String createVeh() {
 		producer = producerDAO.find(prod);
 		vehicle.setProducer(producer);
-		
-
+		String typeV = vehicle.getVehicleType();
+	
+			
+		if(typeV.equals("Car")) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "CAR " + vehicle.getVehicleName(), ""));
+			
 			try {
 				vehicleDAO.create(vehicle);
-				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully added producer: ", ""));
+				car.setVehicle(vehicle);
+				carDAO.create(car);
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully added vehicle: " + vehicle.getVehicleName(), ""));
 				
 			}catch(Exception e){
 				e.printStackTrace();
 				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ""));
 				return PAGE_STAY_AT_THE_SAME;
 			}
+			
+			}else if(typeV.equals("Truck")) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "TRUCK " + vehicle.getVehicleName(), ""));
+				
+				try {
+					vehicleDAO.create(vehicle);
+					truck.setVehicle(vehicle);
+					truckDAO.create(truck);
+					ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully added vehicle: " + vehicle.getVehicleName(), ""));
+					
+				}catch(Exception e){
+					e.printStackTrace();
+					ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ""));
+					return PAGE_STAY_AT_THE_SAME;
+				}
+
+			}else if(typeV.equals("Motorcycle")){
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "MOTOR " + vehicle.getVehicleName(), ""));
+				
+				try {
+					vehicleDAO.create(vehicle);
+					motor.setVehicle(vehicle);
+					motorDAO.create(motor);
+					ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully added vehicle: " + vehicle.getVehicleName(), ""));
+					
+				}catch(Exception e){
+					e.printStackTrace();
+					ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ""));
+					return PAGE_STAY_AT_THE_SAME;
+				}
+				
+
+			}else {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error passing vehicle type", ""));
+				return PAGE_STAY_AT_THE_SAME;
+			}
+
+
+		
+		
 		return PAGE_MAIN;
 	}
 	

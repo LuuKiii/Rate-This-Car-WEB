@@ -49,6 +49,7 @@ public class EditProducerBB implements Serializable {
 	}
 
 	public void onLoad() throws IOException {
+		System.out.println("load");
 
 		loaded = (Producer) flash.get("producer");
 
