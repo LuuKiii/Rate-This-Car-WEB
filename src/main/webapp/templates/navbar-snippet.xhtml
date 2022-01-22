@@ -6,12 +6,16 @@
 
 
 	 <h:form class="navbar-container">
-		<h:commandLink value="Home" action="/pages/public/carList" />
-		<h:commandLink value="Search" action="/pages/public/carView" />
-		<h:commandLink value="Producers" action="/pages/admin/producer"/>
-		<h:commandLink value="Login" action="/pages/public/login"/>
-		<h:commandLink value="Register" action="/pages/public/register"/>
+		<h:commandLink value="Home" action="/pages/public/homePage?faces-redirect=true" />
+		<h:commandLink value="Vehicle List" action="/pages/public/carList?faces-redirect=true"/>
+		<h:commandLink value="Producers" action="/pages/public/producer?faces-redirect=true"/>
 		
+		<h:commandLink value="#{remoteClient.details.userName} " action="/pages/user/userPage?faces-redirect=true" rendered="#{remoteClient.details.role eq 'user'}"/>
+		<h:commandLink value="#{remoteClient.details.userName} [admin]" action="/pages/user/userPage?faces-redirect=true" rendered="#{remoteClient.details.role eq 'admin'}"/>
+		
+		<h:commandLink value="Login" action="/pages/public/login?faces-redirect=true" rendered="#{remoteClient == null}"/>
+		<h:commandLink value="Register" action="/pages/public/register?faces-redirect=true" rendered="#{remoteClient == null}"/>
+		<h:commandLink value="Logout" action="#{loginBB.logoutAction()}" rendered="#{remoteClient != null}"/>
      </h:form>
 
 

@@ -29,7 +29,7 @@ import jsf.entities.Producer;
 public class EditProducerBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PAGE_PRODUCER = "/pages/admin/producer?faces-redirect=true";
+	private static final String PAGE_PRODUCER = "/pages/public/producer?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private Producer producer = new Producer();

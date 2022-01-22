@@ -24,14 +24,19 @@ import jsf.entities.Producer;
 import jsf.dao.VehicleDAO;
 import jsf.entities.Vehicle;
 
+import jsf.dao.CarDAO;
+import jsf.entities.Car;
+import jsf.dao.TruckDAO;
+import jsf.entities.Truck;
+import jsf.dao.MotorDAO;
+import jsf.entities.Motor;
+
 @Named
 @RequestScoped
 public class CarListBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String PAGE_MAIN = "/pages/public/carList?faces-redirect=true";
-	private static final String PAGE_PRODUCER = "/pages/admin/producer?faces-redirect=true";
 	private static final String PAGE_ADD_VEHICLE = "/pages/admin/addVehicle?faces-redirect=true";
 
 
@@ -49,7 +54,7 @@ public class CarListBB implements Serializable {
 	}
 	
 	
-	
+
 
 	public int getProd() {
 		return prod;
@@ -77,15 +82,51 @@ public class CarListBB implements Serializable {
 	@EJB
 	ProducerDAO producerDAO;
 	
+	@EJB
+	CarDAO carDAO;
+	
+	@EJB 
+	TruckDAO truckDAO;
+	
+	@EJB 
+	MotorDAO motorDAO;
+	
+	
 	@Inject
 	FacesContext ctx;
 		
 	@Inject
 	Flash flash;
 	
+	public List<Vehicle> getVehicleList(){
+		return vehicleDAO.getAllVehicles();
+	}
+	
+	public String getProducerName(Producer producer) {
+		Producer p = producerDAO.find(producer.getIdproducer());
+		return  p.getProducerName();
+	}
+	
 	public String addVehicle(){
 		
 		return PAGE_ADD_VEHICLE;
+	}
+	
+	
+	public String deleteVeh(Vehicle vehicle) {
+		String typeveh = vehicle.getVehicleType();
+		if(typeveh.equals("Car")) {
+			carDAO.remove(carDAO.getOriginVeh(vehicle));
+			vehicleDAO.remove(vehicle);			
+			
+		}else if(typeveh.equals("Truck")) {
+			truckDAO.remove(truckDAO.getOriginVeh(vehicle));
+			vehicleDAO.remove(vehicle);		
+		}else {
+			motorDAO.remove(motorDAO.getOriginVeh(vehicle));
+			vehicleDAO.remove(vehicle);		
+		}
+		return PAGE_STAY_AT_THE_SAME;
 	}
 
 

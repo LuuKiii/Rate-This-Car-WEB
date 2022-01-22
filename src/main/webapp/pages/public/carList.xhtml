@@ -13,7 +13,7 @@
 		<h1>Car List</h1>
 		
 
-		<h:form style="display:flex; justify-content: end; ">
+		<h:form style="display:flex; justify-content: end; " rendered="#{remoteClient.details.role eq 'admin'}">
 			<h:commandLink value="Add Vehicle" action="#{carListBB.addVehicle()}" style="border: 0; padding: 10px 30px; background-color: black;"/>		
 		</h:form>
 		
@@ -21,24 +21,54 @@
 		<br/>
 
 
-		<p:dataTable value="#{userBB.getFullList()}" var="u">
+		<h:form>
+			<p:dataTable value="#{carListBB.getVehicleList()}" var="v"  editable="true">
 
+			
 			<p:column priority="5">
 				<f:facet name="header">
-					<h:outputText value="imię" />
+					<h:outputText value="Vehicle Type" />
 				</f:facet>
-				<h:outputText value="#{u.userName}" />
+				<h:outputText value="#{v.vehicleType}" />
 			</p:column>
 			
-			<p:column priority="4">
+			<p:column priority="1">
 				<f:facet name="header">
-					<h:outputText value="imię" />
+					<h:outputText value="Vehicle Name" />
 				</f:facet>
-				<h:outputText value="#{u.role}" />
+				<p:commandLink  >
+					<h:outputText value="#{v.vehicleName}" />
+				</p:commandLink>
 			</p:column>
+			
+			<p:column priority="1">
+				<f:facet name="header">
+					<h:outputText value="Manufacturer" />
+				</f:facet>
+				<p:commandLink  >
+					<h:outputText value="#{carListBB.getProducerName(v.producer)}" />
+				</p:commandLink>
+			</p:column>
+			
+			<p:column priority="5" rendered="#{remoteClient != null}">
+				<f:facet name="header">
+					<h:outputText value="Rate this vehicle" />
+				</f:facet>
+								
+			</p:column>
+			
+			<p:column priority="5" rendered="#{remoteClient.details.role eq 'admin'}">
+				<f:facet name="header">
+					<h:outputText value="Manage" />
+				</f:facet>
+					<p:commandButton icon="pi pi-times" styleClass="rounded-button ui-button-danger" style="border: 0px;background-color:red;" update="@form" action="#{carListBB.deleteVeh(v)}"/>	
+								
+			</p:column>
+			
 
 
 		</p:dataTable>
+		</h:form>
 
 		
 

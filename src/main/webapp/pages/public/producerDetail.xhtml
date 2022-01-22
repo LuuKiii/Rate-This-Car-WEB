@@ -19,7 +19,25 @@
 		<br/>
 	<h:outputText value="#{producerBB.producer.producerDescription}" />
 		
+			<h:form>
+			<p:dataTable value="#{producerBB.getProducersVehicles()}" var="v"  editable="true">
 
+			<p:column priority="1">
+				<f:facet name="header">
+					<h:outputText value="Manufacturer" />
+				</f:facet>
+				<p:commandLink  action="#{producerBB.detProducer(p)}">
+					<h:outputText value="#{v.vehicleName}" />
+				</p:commandLink>
+			</p:column>
+			
+
+			
+
+
+
+		</p:dataTable>
+		</h:form>
 
 
 

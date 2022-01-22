@@ -22,7 +22,9 @@ import javax.servlet.http.HttpSession;
 
 
 import jsf.dao.ProducerDAO;
+import jsf.dao.VehicleDAO;
 import jsf.entities.Producer;
+import jsf.entities.Vehicle;
 
 @Named
 @RequestScoped
@@ -48,6 +50,9 @@ public class ProducerBB implements Serializable {
 	@EJB
 	ProducerDAO producerDAO;
 	
+	@EJB
+	VehicleDAO vehicleDAO;
+	
 	@Inject
 	FacesContext ctx;
 	
@@ -59,7 +64,16 @@ public class ProducerBB implements Serializable {
 	
 
 	public String deletePro(Producer producer) {
-		producerDAO.remove(producer);
+		if(vehicleDAO.getProducersVeh(producer).isEmpty()) {
+			producerDAO.remove(producer);
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Deletion Successful", null));			
+
+		}else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't remove a producer with vehicles assigned to.", null));			
+
+		}
+		
+		
 		return PAGE_STAY_AT_THE_SAME;
 	}
 	
@@ -84,6 +98,10 @@ public class ProducerBB implements Serializable {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));			
 		}
 
+	}
+	
+	public List<Vehicle> getProducersVehicles(){
+		return vehicleDAO.getProducersVeh(producer);
 	}
 
 

@@ -14,7 +14,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.simplesecurity.RemoteClient;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -25,7 +27,8 @@ import jsf.entities.User;
 @RequestScoped
 public class LoginBB {
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	
+	private static final String PAGE_HOME = "/pages/public/homePage?faces-redirect=true";
+
 	private String mail;
 	private String pass;
 	
@@ -70,15 +73,37 @@ public class LoginBB {
 		return userDAO.getAllUsers();
 	}
 	
-	public void loginAction() {
+	public String loginAction() {
+		ctx = FacesContext.getCurrentInstance();
 		
 		List<User> users = userDAO.canLogin(mail , pass);
 		
 		if(users.isEmpty()) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong E-mail or Password",null));
-		} else {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ok",null));
+			return PAGE_STAY_AT_THE_SAME;
 		}
+		
+		User user = users.get(0);
+		RemoteClient<User> client = new RemoteClient<User>();
+		
+		client.setDetails(user);
+		
+		client.getRoles().add(user.getRole());
+		
+		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
+		client.store(request);
+		
+		return PAGE_HOME;
+		
+		
+	}
+	
+	public String logoutAction(){
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
+
+		session.invalidate();
+		return PAGE_HOME;
 	}
 		
 
