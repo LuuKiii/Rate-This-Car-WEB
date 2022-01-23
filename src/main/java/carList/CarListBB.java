@@ -24,10 +24,14 @@ import jsf.entities.Producer;
 import jsf.dao.VehicleDAO;
 import jsf.entities.Vehicle;
 
+
+
 import jsf.dao.CarDAO;
 import jsf.entities.Car;
 import jsf.dao.TruckDAO;
+import jsf.dao.UserRatesVehicleDAO;
 import jsf.entities.Truck;
+import jsf.entities.UserRatesVehicle;
 import jsf.dao.MotorDAO;
 import jsf.entities.Motor;
 
@@ -46,6 +50,8 @@ public class CarListBB implements Serializable {
 	private Producer producer = new Producer();
 	
 	private Vehicle vehicle = new Vehicle();
+	
+	private UserRatesVehicle rates = new UserRatesVehicle();
 	
 
 
@@ -83,6 +89,9 @@ public class CarListBB implements Serializable {
 	ProducerDAO producerDAO;
 	
 	@EJB
+	UserRatesVehicleDAO rateDAO;
+	
+	@EJB
 	CarDAO carDAO;
 	
 	@EJB 
@@ -115,6 +124,15 @@ public class CarListBB implements Serializable {
 	
 	public String deleteVeh(Vehicle vehicle) {
 		String typeveh = vehicle.getVehicleType();
+		List<UserRatesVehicle> ratedvehicles = rateDAO.getRatedVeh(vehicle);
+		
+		while(!ratedvehicles.isEmpty()) {
+			rateDAO.remove(ratedvehicles.get(0));
+			ratedvehicles = rateDAO.getRatedVeh(vehicle);
+		}
+		
+		
+		
 		if(typeveh.equals("Car")) {
 			carDAO.remove(carDAO.getOriginVeh(vehicle));
 			vehicleDAO.remove(vehicle);			

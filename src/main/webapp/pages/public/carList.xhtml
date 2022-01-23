@@ -7,6 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
+
 	
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
@@ -19,10 +20,13 @@
 		
 		<br/>
 		<br/>
-
+		
+		<p:messages id="mgs" showDetail="true">
+            <p:autoUpdate/>
+        </p:messages>
 
 		<h:form>
-			<p:dataTable value="#{carListBB.getVehicleList()}" var="v"  editable="true">
+			<p:dataTable value="#{carListBB.getVehicleList()}" var="v"  editable="true" rows="12"  paginator="true">
 
 			
 			<p:column priority="5">
@@ -50,10 +54,19 @@
 				</p:commandLink>
 			</p:column>
 			
-			<p:column priority="5" rendered="#{remoteClient != null}">
+			<p:column priority="5" >
 				<f:facet name="header">
 					<h:outputText value="Rate this vehicle" />
 				</f:facet>
+					 <p:rating value="#{rateBB.rating}" rendered="#{remoteClient != null}">
+					 	<p:ajax event="rate" listener="#{rateBB.onRate(v)}"/>
+						<p:ajax event="cancel" listener="#{rateBB.deleteRate(v)}" />
+		
+					</p:rating>
+					
+					<p:rating value="#{rateBB.overallrating(v)}"  disabled="true">
+		
+					</p:rating>
 								
 			</p:column>
 			
