@@ -12,7 +12,54 @@
 	<ui:define name="pageContent">
 		<h1>USER PAGE</h1>
 		
+		<h:form>
 
+			<p:dataTable value="#{userBB.getUsersList()}" var="l"  editable="true" rows="12"  paginator="true">
+			
+			<p:column priority="5">
+				<f:facet name="header">
+					<h:outputText value="Vehicle Type" />
+				</f:facet>
+				<h:outputText value="#{userBB.getVeh(l.vehicle.idvehicle).vehicleType}" />
+			</p:column>
+			
+			<p:column priority="1">
+				<f:facet name="header">
+					<h:outputText value="Vehicle Name" />
+				</f:facet>
+	
+					<h:outputText value="#{userBB.getVeh(l.vehicle.idvehicle).vehicleName}" />
+
+			</p:column>
+			
+
+			
+			<p:column priority="5" >
+				<f:facet name="header">
+					<h:outputText value="Rating" />
+				</f:facet>
+				Your Rating:
+					 <p:rating value="#{userBB.intPars(l.rateOverall)}" disabled="true">
+						<p:ajax event="rate" listener="#{rateBB.onRate(userBB.getVeh(l.vehicle.idvehicle))}"/>
+						<p:ajax event="cancel" listener="#{rateBB.deleteRate(userBB.getVeh(l.vehicle.idvehicle))}" />
+		
+					</p:rating>
+				Overall Rating:
+					<p:rating value="#{rateBB.overallrating(userBB.getVeh(l.vehicle.idvehicle))}"  disabled="true">
+		
+					</p:rating>
+					
+				<h:form style="display:flex; justify-content: end; ">
+					<h:commandLink value="Advanced" action="#{userBB.advanced()}" style="border: 0;border-radius:10px; padding: 2px 5px; background-color: black;"/>		
+				</h:form>	
+								
+			</p:column>
+			
+			
+
+			</p:dataTable>
+	
+		</h:form>
 
 	
 	</ui:define>

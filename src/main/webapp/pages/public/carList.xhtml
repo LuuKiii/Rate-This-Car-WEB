@@ -58,12 +58,13 @@
 				<f:facet name="header">
 					<h:outputText value="Rate this vehicle" />
 				</f:facet>
+					Rate:
 					 <p:rating value="#{rateBB.rating}" rendered="#{remoteClient != null}">
 					 	<p:ajax event="rate" listener="#{rateBB.onRate(v)}"/>
 						<p:ajax event="cancel" listener="#{rateBB.deleteRate(v)}" />
 		
 					</p:rating>
-					
+					Overall Rating:
 					<p:rating value="#{rateBB.overallrating(v)}"  disabled="true">
 		
 					</p:rating>
