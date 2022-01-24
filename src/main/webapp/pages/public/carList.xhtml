@@ -40,7 +40,7 @@
 				<f:facet name="header">
 					<h:outputText value="Vehicle Name" />
 				</f:facet>
-				<p:commandLink  >
+				<p:commandLink  action="#{carListBB.detVehicle(v)}">
 					<h:outputText value="#{v.vehicleName}" />
 				</p:commandLink>
 			</p:column>
@@ -49,9 +49,9 @@
 				<f:facet name="header">
 					<h:outputText value="Manufacturer" />
 				</f:facet>
-				<p:commandLink  >
 					<h:outputText value="#{carListBB.getProducerName(v.producer)}" />
-				</p:commandLink>
+
+				
 			</p:column>
 			
 			<p:column priority="5" >

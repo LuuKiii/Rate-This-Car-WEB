@@ -32,7 +32,6 @@ public class ProducerBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String PAGE_MAIN = "/pages/public/carList?faces-redirect=true";
 	private static final String PAGE_EDIT_PRODUCER = "/pages/admin/editProducer?faces-redirect=true";
 	private static final String PAGE_PRODUCER_DETAIL = "/pages/public/producerDetail?faces-redirect=true";
 

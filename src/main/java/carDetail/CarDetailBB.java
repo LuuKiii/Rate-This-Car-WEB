@@ -1,4 +1,4 @@
-package carList;
+package carDetail;
 
 
 
@@ -36,13 +36,12 @@ import jsf.dao.MotorDAO;
 import jsf.entities.Motor;
 
 @Named
-@RequestScoped
-public class CarListBB implements Serializable {
+@ViewScoped
+public class CarDetailBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	private static final String PAGE_ADD_VEHICLE = "/pages/admin/addVehicle?faces-redirect=true";
-	private static final String PAGE_VEHICLE_DETAIL = "/pages/public/carView?faces-redirect=true";
 
 
 	
@@ -51,6 +50,12 @@ public class CarListBB implements Serializable {
 	private Producer producer = new Producer();
 	
 	private Vehicle vehicle = new Vehicle();
+	private Vehicle loaded = null;
+	
+	private Car car = new Car();
+	private Truck truck = new Truck();
+	private Motor motor = new Motor();
+	
 	
 	private UserRatesVehicle rates = new UserRatesVehicle();
 	
@@ -60,17 +65,21 @@ public class CarListBB implements Serializable {
 		return vehicle;
 	}
 	
-	
 
+	public Car getCar() {
+		return car;
+	}
 
-	public int getProd() {
-		return prod;
+	public Truck getTruck() {
+		return truck;
+	}
+
+	public Motor getMotor() {
+		return motor;
 	}
 
 
-	public void setProd(int prod) {
-		this.prod = prod;
-	}
+
 
 
 	public Producer getProducer() {
@@ -108,51 +117,39 @@ public class CarListBB implements Serializable {
 	@Inject
 	Flash flash;
 	
-	public List<Vehicle> getVehicleList(){
-		return vehicleDAO.getAllVehicles();
-	}
-	
-	public String getProducerName(Producer producer) {
-		Producer p = producerDAO.find(producer.getIdproducer());
-		return  p.getProducerName();
-	}
-	
-	public String addVehicle(){
-		
-		return PAGE_ADD_VEHICLE;
-	}
 	
 	
-	public String deleteVeh(Vehicle vehicle) {
-		String typeveh = vehicle.getVehicleType();
-		List<UserRatesVehicle> ratedvehicles = rateDAO.getRatedVeh(vehicle);
-		
-		while(!ratedvehicles.isEmpty()) {
-			rateDAO.remove(ratedvehicles.get(0));
-			ratedvehicles = rateDAO.getRatedVeh(vehicle);
-		}
-		
-		
-		
-		if(typeveh.equals("Car")) {
-			carDAO.remove(carDAO.getOriginVeh(vehicle));
-			vehicleDAO.remove(vehicle);			
+	public void onLoad() throws IOException {
+
+		loaded = (Vehicle) flash.get("vehicle");
+		if (loaded != null) {
+			vehicle = loaded;
+			producer = producerDAO.find(vehicle.getProducer().getIdproducer());
+			extension();
 			
-		}else if(typeveh.equals("Truck")) {
-			truckDAO.remove(truckDAO.getOriginVeh(vehicle));
-			vehicleDAO.remove(vehicle);		
-		}else {
-			motorDAO.remove(motorDAO.getOriginVeh(vehicle));
-			vehicleDAO.remove(vehicle);		
+		} else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));			
 		}
-		return PAGE_STAY_AT_THE_SAME;
+
 	}
 	
-	public String detVehicle(Vehicle vehicle){
-		flash.put("vehicle", vehicle);
+	public void extension() {
+		String type = vehicle.getVehicleType();
+		car = null;
+		truck = null;
+		motor = null;
 		
-		return PAGE_VEHICLE_DETAIL;
+		if(type.equals("Car")) {
+			car = carDAO.getOriginVeh(vehicle);
+		}else if (type.equals("Truck")) {
+			truck = truckDAO.getOriginVeh(vehicle);
+		}else if (type.equals("Motorcycle")) {
+			motor = motorDAO.getOriginVeh(vehicle);
+		}else {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error getting detailed specs", null));		
+		}
 	}
+	
 
 
 }

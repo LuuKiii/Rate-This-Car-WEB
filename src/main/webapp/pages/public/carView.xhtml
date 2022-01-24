@@ -7,34 +7,94 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
+<f:metadata>
+    <f:viewAction action="#{carDetailBB.onLoad()}" />
+</f:metadata>	
+	
 	
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
-		<h1>CarView</h1>
 		
 
-
-
-
-		<p:dataTable value="#{userBB.getFullList()}" var="u">
-
-			<p:column priority="5">
-				<f:facet name="header">
-					<h:outputText value="imię" />
-				</f:facet>
-				<h:outputText value="#{u.userName}" />
-			</p:column>
+		<p:messages id="mgs">
+            <p:autoUpdate/>
+        </p:messages>
 			
-			<p:column priority="4">
-				<f:facet name="header">
-					<h:outputText value="imię" />
-				</f:facet>
-				<h:outputText value="#{u.role}" />
-			</p:column>
+			<p:graphicImage name="img/#{carDetailBB.vehicle.vehicleImage}"  library="template" width = "700px" height="500px"
+			style="border: 2px solid black; padding: 5px; background-color: black; box-shadow: 0 0 5px ;"/>
+			<br/>
+			
+		<h:form id="form-container">
+			<h:panelGrid id="grid" columns="2" cellpadding="7" style="font-size: 20px;">
+			
+			 <h:outputText value="Vehicles manufacturer: " />
+            <h:outputText value="#{carDetailBB.producer.producerName}" />
+			
+            <h:outputText value="Vehicles name:  " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleName}" />
+            
+           
+
+            <h:outputText value="Vehicles type: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleType}" />
+            
+
+            
+            <h:outputText value="Vehicles engine power: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehiclePower}KW" />
+            
+            <h:outputText value="Vehicles engine capacity: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleEngCap}cm3" />
+            
+            <h:outputText value="Vehicles transmission: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleTransmission}" />
+            
+            <h:outputText value="Vehicles fuel type: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleFuel}" />  
+            
+            <h:outputText value="Vehicles production year: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehicleYear}" />     
+            
+            <h:outputText value="Vehicles average price: " />
+            <h:outputText value="#{carDetailBB.vehicle.vehiclePrice}" />  
+                                              
+            
+
+			
+            
+            <h:outputText value="Cars type: " rendered="#{carDetailBB.car != null}"/>
+            <h:outputText value="#{carDetailBB.car.carType}"  rendered="#{carDetailBB.car != null}"/>
+            
+		    <h:outputText value="Cars top speed: " rendered="#{carDetailBB.car != null}"/>
+            <h:outputText value="#{carDetailBB.car.topSpeed}"  rendered="#{carDetailBB.car != null}"/>
+            
+            <h:outputText value="Cars number of seats: " rendered="#{carDetailBB.car != null}"/>
+            <h:outputText value="#{carDetailBB.car.seats}"  rendered="#{carDetailBB.car != null}"/>
+            
+            <h:outputText value="Cars driving wheels: " rendered="#{carDetailBB.car != null}"/>
+            <h:outputText value="#{carDetailBB.car.drive}"  rendered="#{carDetailBB.car != null}"/>
+            
+            
+            <h:outputText value="Trucks type: " rendered="#{carDetailBB.truck!= null}"/>
+            <h:outputText value="#{carDetailBB.truck.truckType}"  rendered="#{carDetailBB.truck != null}"/>
+            
+            <h:outputText value="Trucks clearance: " rendered="#{carDetailBB.truck!= null}"/>
+            <h:outputText value="#{carDetailBB.truck.clearance}"  rendered="#{carDetailBB.truck != null}"/>
+            
+            
+            <h:outputText value="Motorcycles type: " rendered="#{carDetailBB.motor!= null}"/>
+            <h:outputText value="#{carDetailBB.motor.motorType}"  rendered="#{carDetailBB.motor != null}"/>
+            
+            <h:outputText value="Motorcycles spped: " rendered="#{carDetailBB.motor!= null}"/>
+            <h:outputText value="#{carDetailBB.motor.topSpeed}"  rendered="#{carDetailBB.motor != null}"/>
+            
+            
+            
+            
+        </h:panelGrid>
 
 
-		</p:dataTable>
-
+</h:form>
 		
 
 	

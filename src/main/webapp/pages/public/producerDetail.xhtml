@@ -12,15 +12,36 @@
 
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
+	
+	
 
-	<h:outputText value="#{producerBB.producer.producerName}" />
-		<br/>
-	<h:outputText value="#{producerBB.producer.producerCountry}" />
-		<br/>
-	<h:outputText value="#{producerBB.producer.producerDescription}" />
+	
+		<h:panelGrid id="grid" columns="2" cellpadding="7" style="font-size: 30px;">
 		
-			<h:form>
-			<p:dataTable value="#{producerBB.getProducersVehicles()}" var="v"  editable="true">
+            <h:outputText
+            value="Manufacturer: " />
+            <h:outputText 
+            value="#{producerBB.producer.producerName}" />
+            
+           
+
+            <h:outputText 
+            value="Country of origin: " />
+            <h:outputText id="coo" 
+            value="#{producerBB.producer.producerCountry}" />
+            
+            
+		
+        </h:panelGrid>
+		
+		<br/>
+		<br/>
+		
+			<h:outputText value="#{producerBB.producer.producerDescription}" style="margin: 10px;"/>
+		<br/>
+	
+		<h:form style="max-width: 300px; margin-top: 20px;" id="form-container" >
+			<p:dataTable value="#{producerBB.getProducersVehicles()}" var="v" rows="12"  paginator="true" editable="true">
 
 			<p:column priority="1">
 				<f:facet name="header">
@@ -31,10 +52,6 @@
 				</p:commandLink>
 			</p:column>
 			
-
-			
-
-
 
 		</p:dataTable>
 		</h:form>

@@ -22,7 +22,7 @@ body, html{
 }
 
 #footer{
-	position: absolute;
+	
 	bottom: 0;
 	
 	padding-top: 1em;
@@ -39,10 +39,9 @@ body, html{
 	display: flex;
 	
 	
-	position: sticky;
+	
 	top: 0;
 	margin: 0 auto;
-	
 	
 	height: 4rem;
 	max-width: 960px;
@@ -58,4 +57,22 @@ body, html{
 
 .navbar-container > a:hover {
 	background-color: #333;
+}
+
+.content{
+	display: grid;
+	
+	grid-template-columns: repeat(6,1fr);
+	grid-template-rows: repeat(2, 1fr);
+}
+.imagec{
+	border: 2px solid black;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: black;
+	box-shadow: 0 0 5px ;
+	grid-column-start:1;
+	grid-column-end:3;
+	grid-row-start: 1;
+	grid-row-end: 3;
 }

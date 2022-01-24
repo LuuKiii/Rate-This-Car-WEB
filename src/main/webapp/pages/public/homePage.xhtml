@@ -10,11 +10,27 @@
 	
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
-		<h1>HOME</h1>
+		<h1>Rate This Car!</h1>
 		
 
-
-
+		<p:dataTable  value="#{carListBB.getVehicleList()}" var="v"  editable="true" rows="6"  paginator="true">
+		<p:column>
+			<p:panel styleClass="backgroud-color: #494d4b;">
+				<div class="content">
+					<p:graphicImage class="imagec" name="img/#{v.vehicleImage}"  library="template" height="200px"/>
+					<a>Manufacturer:<br/> #{carListBB.getProducerName(v.producer)}</a>
+					<a>Engine Power:<br/>#{v.vehiclePower}kW</a>
+					<a>Transmission:<br/>#{v.vehicleTransmission}</a>
+					<a>Year:<br/>#{v.vehicleYear}</a>
+					<a>Model:<br/>#{v.vehicleName}</a>
+					<a>Engine Capacity:<br/>#{v.vehicleEngCap}cm3</a>				
+					<a>Fuel:<br/>#{v.vehicleFuel}</a>					
+					<a>Price:<br/>#{v.vehiclePrice} PLN</a>
+				</div>
+			</p:panel>
+		</p:column>
+		</p:dataTable>
+	
 	
 	</ui:define>
 </ui:composition>
