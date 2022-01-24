@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{advancedBB.onLoad()}" />
+</f:metadata>
+	
+	
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="pageContent">
+		<h1>Advanced</h1>
+		
+		<h:form style="display:flex; justify-content: end; " >
+			<h:commandLink value="Go Back" action="/pages/user/userPage?faces-redirect=true" style="border: 0; padding: 10px 30px; background-color: black;"/>		
+		</h:form>
+		<br/><br/>
+		<h:form id="form-container" rendered="#{advancedBB.rate != null}">
+
+			<h:panelGrid columns="3" cellpadding="5">
+			
+			<p:column priority="5">
+				<h:outputText value="Overall Rating : " />
+			</p:column>			
+			<p:column priority="5">
+				<h:outputText value="Current rating" />
+				<p:rating value="#{advancedBB.intPars(advancedBB.rate.rateOverall)}" disabled="true"/>
+			</p:column>
+
+			<p:column priority="5">
+				<h:outputText value="Set new rating" />
+				<p:rating value="#{advancedBB.overall}" >
+				<p:ajax event="rate" listener="#{advancedBB.onRateOverall()}"/>
+				</p:rating>
+			</p:column>
+			
+
+			<p:column priority="5">
+				<h:outputText value="Comfort Rating : " />
+			</p:column>			
+			<p:column priority="5">
+				<h:outputText value="Current rating" />
+				<p:rating value="#{advancedBB.intPars(advancedBB.rate.rateComfort)}" disabled="true"/>
+			</p:column>
+
+			<p:column priority="5">
+				<h:outputText value="Set new rating" />
+				<p:rating value="#{advancedBB.comfort}" >
+				<p:ajax event="rate" listener="#{advancedBB.onRateComfort()}"/>
+				</p:rating>
+			</p:column>
+			
+			<p:column priority="5">
+				<h:outputText value="Performance Rating : " />
+			</p:column>			
+			<p:column priority="5">
+				<h:outputText value="Current rating" />
+				<p:rating value="#{advancedBB.intPars(advancedBB.rate.ratePerformance)}" disabled="true"/>
+			</p:column>
+
+			<p:column priority="5">
+				<h:outputText value="Set new rating" />
+				<p:rating value="#{advancedBB.perf}" >
+				<p:ajax event="rate" listener="#{advancedBB.onRatePerf()}"/>
+				</p:rating>
+			</p:column>	
+			
+					
+			<p:column priority="5">
+				<h:outputText value="Exterior Style Rating : " />
+			</p:column>			
+			<p:column priority="5">
+				<h:outputText value="Current rating" />
+				<p:rating value="#{advancedBB.intPars(advancedBB.rate.rateExteriorStyling)}" disabled="true"/>
+			</p:column>
+
+			<p:column priority="5">
+				<h:outputText value="Set new rating" />
+				<p:rating value="#{advancedBB.style}" >
+				<p:ajax event="rate" listener="#{advancedBB.onRateStyle()}"/>
+				</p:rating>
+			</p:column>
+			
+			<p:column priority="5">
+				<h:outputText value="Reliability Rating : " />
+			</p:column>			
+			<p:column priority="5">
+				<h:outputText value="Current rating" />
+				<p:rating value="#{advancedBB.intPars(advancedBB.rate.rateReliability)}" disabled="true"/>
+			</p:column>
+
+			<p:column priority="5">
+				<h:outputText value="Set new rating" />
+				<p:rating value="#{advancedBB.rel}" >
+				<p:ajax event="rate" listener="#{advancedBB.onRateRel()}"/>
+				</p:rating>
+			</p:column>			
+			</h:panelGrid>
+	
+		</h:form>
+	
+	</ui:define>
+</ui:composition>
+</html>

@@ -17,16 +17,16 @@
         </p:messages>
 		
 		<h:form style="display:flex; justify-content: end; " rendered="#{remoteClient.details.role eq 'admin'}">
-			<h:commandLink value="Add Producer" action="/pages/admin/addProducer" style="border: 0; padding: 10px 30px; background-color: black;"/>		
+			<h:commandLink value="Add Producer" action="/pages/admin/addProducer?faces-redirect=true" style="border: 0; padding: 10px 30px; background-color: black;"/>		
 		</h:form>
 		
 		<br/>
 		<br/>
 		
 		<h:form>
-			<p:dataTable value="#{addProducerBB.getFullList()}" var="p"  editable="true">
+			<p:dataTable value="#{addProducerBB.getFullList()}" var="p"  editable="true" rows="12"  paginator="true">
 
-			<p:column priority="1">
+			<p:column priority="1" filterBy="#{p.producerName}">
 				<f:facet name="header">
 					<h:outputText value="Manufacturer" />
 				</f:facet>
@@ -35,7 +35,7 @@
 				</p:commandLink>
 			</p:column>
 			
-			<p:column priority="5">
+			<p:column priority="5" filterBy="#{p.producerCountry}">
 				<f:facet name="header">
 					<h:outputText value="Country of origin" />
 				</f:facet>

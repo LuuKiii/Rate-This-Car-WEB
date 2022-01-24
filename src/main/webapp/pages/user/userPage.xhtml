@@ -12,18 +12,20 @@
 	<ui:define name="pageContent">
 		<h1>USER PAGE</h1>
 		
+
+		
 		<h:form>
 
-			<p:dataTable value="#{userBB.getUsersList()}" var="l"  editable="true" rows="12"  paginator="true">
+			<p:dataTable value="#{userBB.getUsersList()}" var="l"  editable="true" rows="6"  paginator="true">
 			
-			<p:column priority="5">
+			<p:column priority="5" filterBy="#{userBB.getVeh(l.vehicle.idvehicle).vehicleType}">
 				<f:facet name="header">
 					<h:outputText value="Vehicle Type" />
 				</f:facet>
 				<h:outputText value="#{userBB.getVeh(l.vehicle.idvehicle).vehicleType}" />
 			</p:column>
 			
-			<p:column priority="1">
+			<p:column priority="1" filterBy="#{userBB.getVeh(l.vehicle.idvehicle).vehicleName}">
 				<f:facet name="header">
 					<h:outputText value="Vehicle Name" />
 				</f:facet>
@@ -49,9 +51,10 @@
 		
 					</p:rating>
 					
-				<h:form style="display:flex; justify-content: end; ">
-					<h:commandLink value="Advanced" action="#{userBB.advanced()}" style="border: 0;border-radius:10px; padding: 2px 5px; background-color: black;"/>		
-				</h:form>	
+
+					<h:commandLink value="Advanced" action="#{userBB.advanced(l)}" style="border: 0;border-radius:10px; padding: 5px 5px; background-color: black;"/>	
+					<h:commandLink value="X" action="#{userBB.deleteRate(l)}" style="margin-left:20px;border: 0;border-radius:10px; padding: 3px 5px; background-color: #4a3232; color:white;" update="@form"/>	
+
 								
 			</p:column>
 			

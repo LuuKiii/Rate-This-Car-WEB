@@ -26,17 +26,17 @@
         </p:messages>
 
 		<h:form>
-			<p:dataTable value="#{carListBB.getVehicleList()}" var="v"  editable="true" rows="12"  paginator="true">
+			<p:dataTable value="#{carListBB.getVehicleList()}" var="v"  editable="true" rows="6"  paginator="true">
 
 			
-			<p:column priority="5">
+			<p:column priority="5"  filterBy="#{v.vehicleType}">
 				<f:facet name="header">
 					<h:outputText value="Vehicle Type" />
 				</f:facet>
 				<h:outputText value="#{v.vehicleType}" />
 			</p:column>
 			
-			<p:column priority="1">
+			<p:column priority="5" filterBy="#{v.vehicleName}">
 				<f:facet name="header">
 					<h:outputText value="Vehicle Name" />
 				</f:facet>
@@ -45,7 +45,7 @@
 				</p:commandLink>
 			</p:column>
 			
-			<p:column priority="1">
+			<p:column priority="5" filterBy="#{carListBB.getProducerName(v.producer)}">
 				<f:facet name="header">
 					<h:outputText value="Manufacturer" />
 				</f:facet>

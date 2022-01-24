@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import jsf.dao.UserDAO;
 import jsf.dao.UserRatesVehicleDAO;
 import jsf.dao.VehicleDAO;
+import jsf.entities.Producer;
 import jsf.entities.User;
 import jsf.entities.UserRatesVehicle;
 import jsf.entities.Vehicle;
@@ -29,6 +30,9 @@ import jsf.entities.Vehicle;
 @Named
 @RequestScoped
 public class UserBB {
+	private static final String PAGE_ADVANCED = "/pages/user/advanced?faces-redirect=true";
+	private static final String PAGE_STAY_AT_THE_SAME = null;
+
 	private User user = new User();
 	private UserRatesVehicle rates = new UserRatesVehicle();
 	private RemoteClient<User> userTemp = new RemoteClient<User>();
@@ -90,6 +94,18 @@ public class UserBB {
 	public int intPars(double val) {
 		int transval = (int) val;
 		return transval;
+	}
+	
+	public String advanced(UserRatesVehicle instance){
+		flash.put("user_rates_vehicle", instance);
+
+		return PAGE_ADVANCED;
+	}
+	
+	public String deleteRate(UserRatesVehicle instance) {
+		rateDAO.remove(instance);
+		
+		return PAGE_STAY_AT_THE_SAME;
 	}
 
 }

@@ -10,7 +10,7 @@
 <ui:composition template="/templates/main-template.xhtml">
 	<ui:define name="pageContent">
 
-	    <p:messages id="messages" showDetail="true">
+	    <p:messages id="messages">
             <p:autoUpdate/>
         </p:messages>
 
@@ -44,7 +44,7 @@
             </p:inputTextarea>
             <br/>
         
-        <p:linkButton style="margin: 10px; border: 0; padding: 0 50px; background-color: black;" value="Cancel" outcome="/pages/admin/producer" />	
+        <p:linkButton style="margin: 10px; border: 0; padding: 0 50px; background-color: black;" value="Cancel" outcome="/pages/public/producer" />	
         <p:commandButton style="margin: 10px auto; border: 0; padding: 0 50px; background-color: black;" value="Add" action="#{addProducerBB.createPro()}" update="@form"/>	
         
 
