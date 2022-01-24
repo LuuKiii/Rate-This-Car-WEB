@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import jsf.dao.UserDAO;
 import jsf.entities.User;
+import passhash.BCrypt;
 
 @Named
 @RequestScoped
@@ -75,8 +76,8 @@ public class LoginBB {
 	
 	public String loginAction() {
 		ctx = FacesContext.getCurrentInstance();
+		List<User> users = userDAO.mailExists(mail);
 		
-		List<User> users = userDAO.canLogin(mail , pass);
 		
 		if(users.isEmpty()) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong E-mail or Password",null));
@@ -84,6 +85,8 @@ public class LoginBB {
 		}
 		
 		User user = users.get(0);
+		if (!BCrypt.checkpw(pass, user.getPassword())) return PAGE_STAY_AT_THE_SAME;
+		
 		RemoteClient<User> client = new RemoteClient<User>();
 		
 		client.setDetails(user);

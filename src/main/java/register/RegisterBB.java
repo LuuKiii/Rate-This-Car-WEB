@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import jsf.dao.UserDAO;
 import jsf.entities.User;
+import passhash.BCrypt;
 
 @Named
 @RequestScoped
@@ -90,7 +91,8 @@ public class RegisterBB implements Serializable{
 		}else {
 			user.setUserName(name);
 			user.setEmail(mail);
-			user.setPassword(pass);
+			String hashpass = BCrypt.hashpw(pass, BCrypt.gensalt(12));
+			user.setPassword(hashpass);
 			user.setRole("user");
 			
 			
